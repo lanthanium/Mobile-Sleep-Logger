@@ -7,7 +7,9 @@ https://www.youtube.com/watch?v=TwebVgX4EFU
 A CRUD mobile app where users can log the times they fell asleep, the times they woke up, and how tired they were feeling.
 Users can view their sleep diary in the history tab.
 
-Designed for people who log their sleep after they wake up.  
+Designed for people who log their sleep after they wake up. 
+
+Angular/Ionic
 
 # Logging Sleepiness Levels
 There is a Energy Levels tab, which will show them the stanford scale.
