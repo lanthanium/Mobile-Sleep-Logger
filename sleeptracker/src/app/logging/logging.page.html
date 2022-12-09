@@ -1,0 +1,86 @@
+<ion-content id="container" class = "ion-justify-content-start">
+<ion-header class = "overnightHeaderBar">
+  <ion-toolbar>
+    <h1 class = "overnightHeader">
+      <ion-icon name="cloudy-night-outline"></ion-icon> &nbsp; Sleep Entry</h1>
+  </ion-toolbar>
+</ion-header>
+
+<div class = "cards">
+  <ion-card id = "openSleepTime">
+    <ion-card-header>
+      <ion-card-subtitle>When did you fall asleep?</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <p [innerHTML]="sleepStartString"></p>
+    </ion-card-content>
+  </ion-card>
+  <ion-card id = "openWakeTime">
+    <ion-card-header>
+      <ion-card-subtitle>When did you wake up?</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <p [innerHTML] = "wakeString"></p>
+    </ion-card-content>
+  </ion-card>
+</div>
+
+  
+<div class = "addDiary" *ngIf="defaultButton">
+  <ion-button
+    id = "errorTrigger"
+    expand="block" (click)="sleepSummary()">
+    <ion-icon slot="start" name="add-circle-outline"></ion-icon>
+    Add to Diary
+  </ion-button>
+  <ion-popover
+    *ngIf = "errorPopUp()" trigger="errorTrigger"
+    triggerAction = "click">
+      <ng-template>
+        <ion-content class = "ion-padding">
+          Please make sure the dates/times you selected are valid. 
+        </ion-content>
+      </ng-template>
+  </ion-popover>
+</div>
+
+<div class = "addDiary" *ngIf="addAnother">
+  <ion-button
+  expand = "block" (click) = "reloadCurrentPage()">
+  <ion-icon slot = "start" name="checkmark-outline"></ion-icon>
+  Add another entry?
+  </ion-button>
+</div>
+
+<ion-card *ngIf = "logSummary">
+  <ion-card-header>
+    <ion-card-title>Entry Saved!</ion-card-title>
+    <ion-card-subtitle>{{this.logSummary.dateString()}}</ion-card-subtitle>
+  </ion-card-header>
+  <ion-card-content>
+    You slept for {{this.logSummary.summaryString()}}
+    <br>Go check out your saved entries in the history tab!
+  </ion-card-content>
+</ion-card>
+
+</ion-content>
+
+<ion-modal *ngIf="defaultButton" trigger="openSleepTime" >
+  <ng-template>
+    <ion-datetime [showDefaultButtons] = "true" presentation = "date-time" 
+    #sleepTime
+    (ionChange)="sleepTimeChanged(sleepTime.value)"
+    ></ion-datetime>
+  </ng-template>
+</ion-modal>  
+
+<div>
+<ion-modal *ngIf="defaultButton"  trigger="openWakeTime">
+  <ng-template>
+    <ion-datetime [showDefaultButtons] = "true" presentation = "date-time"
+    #wakeTime
+    (ionChange)="wakeTimeChanged(wakeTime.value)"
+    ></ion-datetime>
+  </ng-template>
+</ion-modal>  
+</div>

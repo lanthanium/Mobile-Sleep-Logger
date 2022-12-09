@@ -1,0 +1,48 @@
+
+.overnightHeader{
+    text-align: center;
+}
+
+ion-toolbar{
+    --background:rgb(43, 134, 36);
+}
+
+ion-card {
+  --background: rgba(42, 42, 42, 0.936);
+  --color: #ffffff;
+}
+
+ion-card-subtitle{
+    --color:#c4c4c4;
+}
+
+ion-button{
+    --background: rgb(43, 134, 36);
+    --color: white;
+}
+
+ion-datetime{
+    --background: rgb(22, 71, 19);
+    --color: white;
+}
+
+.cards{
+    margin-top: 3vh;
+}
+
+.addDiary{
+    margin-top: 3vh;
+    margin-bottom: 3vh;
+   
+}
+
+ion-modal {
+    --width: fit-content;
+    --height: fit-content;
+}
+
+
+
+ion-content#container{
+    --background: rgb(14, 14, 14);
+}

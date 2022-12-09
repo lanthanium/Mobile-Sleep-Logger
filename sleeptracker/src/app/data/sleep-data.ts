@@ -17,4 +17,13 @@ export class SleepData {
 	dateString():string {
 		return this.loggedAt.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
 	}
+
+	idString():string{
+		return this.id;
+	}
+
+	//added a new function to set the ID of the Sleep Object so that it matches it's Key in Preferences 
+	setID(counterID:string):void{
+		this.id = counterID;
+	}
 }

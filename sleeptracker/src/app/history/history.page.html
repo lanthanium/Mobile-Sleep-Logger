@@ -1,0 +1,344 @@
+
+<ion-header class = "headerBar">
+  <ion-toolbar>
+    <ion-segment [(ngModel)] = "historyTabs">
+      <ion-segment-button  value="stanford">
+        Energy Levels
+      </ion-segment-button>
+      <ion-segment-button  value="overnight">
+        Sleep Logs
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content id="container">
+
+  <ion-content *ngIf="historyTabs =='stanford'">
+    <ion-content id = "container" *ngIf="stanfordHistory.length">
+      <div *ngFor="let log of stanfordHistory; index as i; first as isFirst">
+        
+        <ion-card (click)="viewInfo(log)">
+
+          <ion-card-header>
+            <ion-card-title>{{log.loggedAtDay()}}</ion-card-title>
+            <ion-card-subtitle>{{log.loggedAtHours()}}</ion-card-subtitle>
+          </ion-card-header>
+
+          <ion-card-content>
+            {{log.summaryString()}}
+          </ion-card-content>
+
+          <ion-button (click) = "presentActionSheet(log)">
+            <ion-icon name="pencil-outline"></ion-icon> <!-- Edit Log Pencil Button -->
+          </ion-button>
+
+        </ion-card>
+
+      </div>
+    </ion-content>
+  </ion-content>
+
+  <ion-content *ngIf="historyTabs =='overnight'">
+    <ion-content *ngIf="overnightHistory.length">
+      <div *ngFor="let log of overnightHistory; index as i; first as isFirst">
+        <ion-card (click) = "viewInfo(log)">
+
+          <ion-card-header>
+            <ion-card-title>{{log.dateString()}}</ion-card-title>
+            <ion-card-subtitle>{{log.timeString()}}</ion-card-subtitle>
+          </ion-card-header>
+        
+          <ion-card-content>
+            You slept a total of {{log.summaryString()}}
+          </ion-card-content>
+
+          <ion-button (click) = "presentActionSheet(log)">
+            <ion-icon name="pencil-outline"></ion-icon>
+          </ion-button>
+
+        </ion-card>
+      </div>
+    </ion-content>
+  </ion-content>
+
+<ion-modal [isOpen] = "openStanfordModal">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Edit Energy</ion-title>
+        <ion-buttons slot="end">
+          <ion-button id = "closeModal" (click)="closeStanford();">Close</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+           <!--                    
+      <div class = "cards">
+        <ion-card id = "stanford">
+          <ion-card-header>
+            <ion-card-subtitle>How are you feeling?</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <p [innerHTML]="levelString"></p>
+          </ion-card-content>
+        </ion-card>
+        
+        <ion-card id = "dateTime">
+          <ion-card-header>
+            <ion-card-subtitle>Date and Time</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <p [innerHTML] = "timeString"></p>
+          </ion-card-content>
+        </ion-card>
+
+        
+
+        <ion-modal *ngIf = "defaultStanfordButton" id = "editDateTime" trigger = "dateTime">
+          <ng-template>
+            <ion-datetime [showDefaultButtons] = "true" presentation = "date-time" 
+            #time
+            (ionChange)="stanfordTimeChanged(time.value)"
+            ></ion-datetime>
+          </ng-template>
+        </ion-modal>
+      </div>
+
+    -->
+
+        <ion-datetime *ngIf="defaultStanfordButton" id="editStanfordDatePicker"  presentation = "date-time" 
+        #time
+        (ionChange)="stanfordTimeChanged(time.value)"
+        ></ion-datetime>
+        
+          
+
+        <div *ngIf = "defaultStanfordButton" class = "listOfLevels">
+
+          <ion-item button="true" detail="false" (click)="levelSelect(1); addCheck($event.target.textContent)">
+            <label>1: {{levelString1}} </label> <ion-icon *ngIf="check1" name="checkmark-circle-outline"></ion-icon>
+          </ion-item>         
+          
+          <ion-item button="true" detail="false" (click)="levelSelect(2); addCheck($event.target.textContent)">   
+            <label>2: {{levelString2}} </label>
+            <ion-icon *ngIf = "check2" name="checkmark-circle-outline"></ion-icon>
+          </ion-item>
+
+          <ion-item button="true" detail="false" (click)="levelSelect(3); addCheck($event.target.textContent)">
+            <label>3: {{levelString3}} </label>
+            <ion-icon *ngIf = "check3" name="checkmark-circle-outline"></ion-icon>
+          </ion-item>
+
+          <ion-item button="true" detail="false" (click)="levelSelect(4); addCheck($event.target.textContent)">  
+            <label>4: {{levelString4}} </label>
+            <ion-icon *ngIf = "check4" name="checkmark-circle-outline"></ion-icon>
+          </ion-item>
+
+          <ion-item button="true" detail="false" (click)="levelSelect(5); addCheck($event.target.textContent)">
+            <label>5: {{levelString5}} </label>
+            <ion-icon *ngIf = "check5" name="checkmark-circle-outline"></ion-icon>
+          </ion-item>
+        
+          <ion-item button="true" detail="false" (click)="levelSelect(6); addCheck($event.target.textContent)">  
+            <label>6: {{levelString6}} </label>
+            <ion-icon *ngIf = "check6" name="checkmark-circle-outline"></ion-icon>
+          </ion-item>  
+
+          <ion-item button="true" detail="false" (click)="levelSelect(7); addCheck($event.target.textContent)"> 
+            <label>7: {{levelString7}} </label>
+            <ion-icon *ngIf = "check7" name="checkmark-circle-outline"></ion-icon>
+          </ion-item>
+
+        </div>
+          
+
+
+        <div class = "updateDiary" *ngIf = "defaultStanfordButton">
+          <ion-button id = "updateDiary" expand="block" (click) = "updateStanfordEntry()">
+            <ion-icon name="cloud-upload-outline"></ion-icon>Update Entry</ion-button>
+        </div>
+
+        <div class = "updateDiary" *ngIf = "updatedStanfordButton">
+          <ion-button id = "entryUpdated" expand="block">
+            <ion-icon name="checkmark-done-outline"></ion-icon>Entry has been updated!</ion-button>
+        </div>
+
+        <ion-card *ngIf = "stanfordSummary">
+          <ion-card-header>
+            <ion-card-title>Energy levels updated!</ion-card-title>
+            <ion-card-subtitle>{{StanfordToUpdate.loggedAtDay()}} {{StanfordToUpdate.loggedAtHours()}}</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            {{StanfordToUpdate.summaryString()}}
+            <br>
+          </ion-card-content>
+        </ion-card>
+
+
+      <!--
+      <ion-modal *ngIf = "defaultStanfordButton" id="editStanfordLevel" #modal trigger="stanford">
+        <ng-template>
+            <ion-toolbar id =stanfordTool>
+              
+                <h4> &nbsp;Stanford Scale</h4>
+              <ion-buttons slot="end">
+                <ion-button (click)="modal.dismiss();">Close</ion-button>
+              </ion-buttons>
+            </ion-toolbar>
+      
+            <div class = "modalList">
+              <div class = "divModal">
+              <ion-item button="true" detail="false" (click)="levelSelect(1); modal.dismiss()">
+                <label>1: {{levelString1}}</label>
+              </ion-item>          
+              </div>
+      
+              <div class = "divModal">
+              <ion-item button="true" detail="false" (click)="levelSelect(2); modal.dismiss()">   
+                <label>2: {{levelString2}} </label>
+              </ion-item>
+              </div>
+      
+      
+              <div class = "divModal">
+              <ion-item button="true" detail="false" (click)="levelSelect(3); modal.dismiss()">    
+                <label>3: {{levelString3}} </label>
+              </ion-item>
+              </div>
+      
+      
+              <div class = "divModal">
+              <ion-item button="true" detail="false" (click)="levelSelect(4); modal.dismiss()">    
+                <label>4: {{levelString4}} </label>
+              </ion-item>
+              </div>
+      
+      
+              <div class = "divModal">
+              <ion-item button="true" detail="false" (click)="levelSelect(5); modal.dismiss()">    
+                <label>5: {{levelString5}} </label>
+              </ion-item>
+              </div>
+      
+      
+              <div class = "divModal">
+              <ion-item button="true" detail="false" (click)="levelSelect(6); modal.dismiss()">    
+                <label>6: {{levelString6}} </label>
+              </ion-item>  
+              </div>
+      
+      
+              <div class = "divModal">
+              <ion-item button="true" detail="false" (click)="levelSelect(7); modal.dismiss()">    
+                <label>7: {{levelString7}} </label>
+              </ion-item>
+              </div>
+      
+            </div>
+      
+         
+        </ng-template>
+      </ion-modal>
+      -->
+
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+
+<ion-modal [isOpen]="openOverNightModal">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Edit Sleep</ion-title>
+        <ion-buttons slot="end">
+          <ion-button id = "closeModal" (click)="closeOverNightModalID()">Close</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class = "ion-padding">
+
+      <div class = "cards">
+        <ion-card id = "modalSleepTrigger">
+          <ion-card-header>
+            <ion-card-subtitle>What time did you fall asleep?</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <p [innerHTML]="sleepStartString"></p>
+          </ion-card-content>
+        </ion-card>
+        
+        <ion-card id = "modalWakeTrigger">
+          <ion-card-header>
+            <ion-card-subtitle>What time did you wake up?</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <p [innerHTML] = "wakeString"></p>
+          </ion-card-content>
+        </ion-card>
+      </div>
+
+      <div *ngIf="defaultOverNightButton">
+        <ion-button
+          (click) = "updateOverNightEntry()"
+          id = "defaultOverNight"
+          expand="block">
+          <ion-icon name="cloud-upload-outline"></ion-icon>
+          Update Entry
+        </ion-button>
+      </div>
+
+      <div *ngIf = "updatedOverNightButton">
+        <ion-button 
+          id = "updatedOverNight"
+          expand= "block">
+          <ion-icon name="checkmark-done-outline"></ion-icon>
+          Entry Updated!</ion-button>
+      </div>
+
+      <div *ngIf = "overNightError">
+        Please make sure the dates/times you selected are valid. 
+      </div>
+
+      <ion-card *ngIf = "overNightSummary">
+        <ion-card-header>
+          <ion-card-title>Entry succesfully updated!</ion-card-title>
+          <ion-card-subtitle>{{this.updatedOverNightData.dateString()}}</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          You slept for {{this.updatedOverNightData.summaryString()}}
+        </ion-card-content>
+      </ion-card>
+
+      <ion-modal *ngIf="defaultOverNightButton" id = "overNightModal" trigger = "modalSleepTrigger">
+        <ng-template>
+          <ion-datetime [showDefaultButtons] = "true" presentation = "date-time" 
+          #time
+          (ionChange)="sleepTimeChanged(time.value)"
+          ></ion-datetime>
+        </ng-template>
+      </ion-modal>
+
+      <ion-modal *ngIf="defaultOverNightButton" id = "overNightModal" trigger = "modalWakeTrigger">
+        <ng-template>
+          <ion-datetime [showDefaultButtons] = "true" presentation = "date-time" 
+          #time
+          (ionChange)="wakeTimeChanged(time.value)"
+          ></ion-datetime>
+        </ng-template>
+      </ion-modal>
+
+
+
+    </ion-content>
+
+  </ng-template>
+</ion-modal>
+
+
+
+</ion-content>
+
+
+

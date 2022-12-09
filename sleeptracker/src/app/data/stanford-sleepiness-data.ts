@@ -2,6 +2,7 @@
 /* https://web.stanford.edu/~dement/sss.html */
 
 import { SleepData } from './sleep-data';
+import { format, parseISO } from 'date-fns';
 
 export class StanfordSleepinessData extends SleepData {
 	public static ScaleValues = [undefined,//Sleepiness scale starts at 1
@@ -15,7 +16,7 @@ export class StanfordSleepinessData extends SleepData {
 
 	private loggedValue:number;
 
-	constructor(loggedValue:number, loggedAt:Date = new Date()) {
+	constructor(loggedValue:number, loggedAt:Date = new Date()) { //StanfordSleepinessData(3, date)
 		super();
 		this.loggedValue = loggedValue;
 		this.loggedAt = loggedAt;
@@ -23,5 +24,29 @@ export class StanfordSleepinessData extends SleepData {
 
 	summaryString():string {
 		return this.loggedValue + ": " + StanfordSleepinessData.ScaleValues[this.loggedValue];
+	}
+
+	//here I added a new getter function to spit back the HH:MM AM/PM of the logged date
+	loggedAtHours():string{
+		//console.log(typeof (format(this.loggedAt, 'p')));
+		return format(this.loggedAt, 'p');
+		//this.loggedAt.toTimeString().split(' ')[0];
+	}
+
+	loggedAtDay():string{
+		return format(this.loggedAt, 'PP')
+	}
+
+	loggedValueString():string{
+		return this.loggedValue.toString();
+	}
+
+	//added a getfunction to get the logged value
+	getLoggedValue():number{
+		return this.loggedValue;
+	}
+
+	setID(capacitorId: string){
+		this.id = capacitorId;
 	}
 }

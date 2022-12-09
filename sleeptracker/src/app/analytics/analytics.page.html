@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar>
+    <div>
+    <h1>
+      <ion-icon name="stats-chart-outline"></ion-icon> &nbsp;Analytics</h1>      
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content id="container">
+
+  <div *ngIf="overnightHistory.length">
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Sleep Average</ion-card-title>
+        <ion-card-subtitle>The average amount of sleep you get based on your entries is</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        {{getAvgSleep()}}
+      </ion-card-content>
+    </ion-card>
+
+  </div>
+
+  <div *ngIf="stanfordHistory.length">
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Average Energy Level</ion-card-title>
+        <ion-card-subtitle>Your average sleepiness level according to the Stanford Scale is</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        {{getAverageEnergy()}}
+      </ion-card-content>
+    </ion-card>
+
+  </div>
+
+  <div *ngIf="overnightHistory.length">
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Sleep Record</ion-card-title>
+        <ion-card-subtitle>The Longest time you slept was on {{maxOverNight.dateString()}}</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        You slept from {{maxOverNight.timeString()}} for a total of {{maxOverNight.summaryString()}}
+      </ion-card-content>
+    </ion-card>
+
+  </div>
+
+
+
+</ion-content>

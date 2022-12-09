@@ -1,0 +1,139 @@
+<ion-content id = "container" class ="ion-justify-content-start">
+  <ion-header>
+    <ion-toolbar>
+      
+      <h1 class = "stanfordTitle">
+        <ion-icon name="cafe-outline"></ion-icon> &nbsp; Energy Levels</h1>
+    </ion-toolbar>
+  </ion-header>
+  
+  <div class = "cards">
+    <ion-card id = "stanford">
+      <ion-card-header>
+        <ion-card-subtitle>How are you feeling?</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <p [innerHTML]="levelString">
+          
+        </p>
+      </ion-card-content>
+    </ion-card>
+    
+    <ion-card id = "dateTime">
+      <ion-card-header>
+        <ion-card-subtitle>Date and Time</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <p [innerHTML] = "timeString"></p>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <div class = "addDiary" *ngIf="defaultButton">
+    <ion-button expand="block" (click) = "logSummary()">
+    <ion-icon slot="start" name="add-circle-outline"></ion-icon>Add to Diary</ion-button>
+  </div>
+
+  <div class = "addDiary" *ngIf="addAnother">
+    <ion-button
+    expand = "block" (click) = "addAnotherEntry()">
+    <ion-icon slot = "start" name="checkmark-outline"></ion-icon>
+    Add another entry?
+    </ion-button>
+  </div>
+
+  <ion-card *ngIf = "stanfordLog">
+    <ion-card-header>
+      <ion-card-title>Energy levels saved!</ion-card-title>
+      <ion-card-subtitle>{{stanfordLog.loggedAtDay()}} {{stanfordLog.loggedAtHours()}}</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      {{stanfordLog.summaryString()}}
+      <br>Go check out your saved entries in the history tab!
+    </ion-card-content>
+  </ion-card>
+    
+
+</ion-content>
+
+<ion-modal *ngIf="defaultButton" trigger = "dateTime">
+  <ng-template>
+    <ion-datetime [showDefaultButtons] = "true" presentation = "date-time" 
+    #time
+    (ionChange)="timeChanged(time.value)"
+    ></ion-datetime>
+  </ng-template>
+</ion-modal>
+
+
+<ion-modal *ngIf = "defaultButton" id="example-modal" #modal trigger="stanford">
+  <ng-template>
+      <ion-toolbar id =stanfordTool>
+        
+          <h4>Stanford Scale</h4>
+        <ion-buttons slot="end">
+          <ion-button (click)="modal.dismiss()">Close</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+
+      <div class = "modalList">
+        <div class = "divModal">
+        <ion-item button="true" detail="false" (click)="levelSelect(1); modal.dismiss()">
+          <label>1: {{levelString1}}</label>
+        </ion-item>          
+        </div>
+
+        <div class = "divModal">
+        <ion-item button="true" detail="false" (click)="levelSelect(2); modal.dismiss()">   
+          <label>2: {{levelString2}} </label>
+        </ion-item>
+        </div>
+
+
+        <div class = "divModal">
+        <ion-item button="true" detail="false" (click)="levelSelect(3); modal.dismiss()">    
+          <label>3: {{levelString3}} </label>
+        </ion-item>
+        </div>
+
+
+        <div class = "divModal">
+        <ion-item button="true" detail="false" (click)="levelSelect(4); modal.dismiss()">    
+          <label>4: {{levelString4}} </label>
+        </ion-item>
+        </div>
+
+
+        <div class = "divModal">
+        <ion-item button="true" detail="false" (click)="levelSelect(5); modal.dismiss()">    
+          <label>5: {{levelString5}} </label>
+        </ion-item>
+        </div>
+
+
+        <div class = "divModal">
+        <ion-item button="true" detail="false" (click)="levelSelect(6); modal.dismiss()">    
+          <label>6: {{levelString6}} </label>
+        </ion-item>  
+        </div>
+
+
+        <div class = "divModal">
+        <ion-item button="true" detail="false" (click)="levelSelect(7); modal.dismiss()">    
+          <label>7: {{levelString7}} </label>
+        </ion-item>
+        </div>
+
+      </div>
+
+   
+  </ng-template>
+</ion-modal>
+  
+
+<!--
+
+
+
+  
+-->

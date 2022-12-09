@@ -1,0 +1,74 @@
+ion-toolbar{
+    --background:rgb(43, 134, 36);
+}
+
+ion-toolbar#stanfordTool{
+    --background: rgb(22, 71, 19);
+}
+
+ion-card {
+    --background: rgba(42, 42, 42, 0.936);
+    --color: #ffffff;
+  }
+  
+  ion-card-subtitle{
+      --color:#c4c4c4;
+  }
+  
+  ion-button{
+      --background: rgb(43, 134, 36);
+      --color: white;
+  }
+
+  .itemClass{
+ 
+    --background-activated: red;
+    --background-activated-opacity:1
+}
+
+  ion-datetime{
+    --background: rgb(22, 71, 19);
+    --color: white;
+}
+
+ion-modal {
+    --width: fit-content;
+    --height: fit-content;
+}
+
+
+
+
+
+.testing{
+    overflow-wrap: break-word;
+    
+}
+
+.stanfordTitle{
+    display:flex;
+    justify-content: center;
+    
+}
+
+h4{
+    padding-left: 2vh;
+}
+
+ion-content#container{
+    --background: rgb(14, 14, 14);
+}
+
+.cards{
+    margin-top: 3vh;   
+}
+
+.addDiary{
+    margin-top: 3vh;
+    margin-bottom: 3vh;
+   
+}
+
+ion-item{
+    --background: rgb(30, 30, 30);
+}

@@ -6,6 +6,7 @@ export class OvernightSleepData extends SleepData {
 
 	constructor(sleepStart:Date, sleepEnd:Date) {
 		super();
+		this.loggedAt = sleepStart;
 		this.sleepStart = sleepStart;
 		this.sleepEnd = sleepEnd;
 	}
@@ -21,7 +22,28 @@ export class OvernightSleepData extends SleepData {
 		return Math.floor(difference_ms / (1000*60*60)) + " hours, " + Math.floor(difference_ms / (1000*60) % 60) + " minutes.";
 	}
 
+	//adding a new get function to get the difference.  I will use this for error checking
+	differenceOfTime():number{
+		return this.sleepStart.getTime() - this.sleepEnd.getTime();
+	}
+
+	differenceOfTimePositive():number{
+		return this.sleepEnd.getTime() - this.sleepStart.getTime();
+	}
+
 	dateString():string {
-		return "Night of " + this.sleepStart.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+		return this.sleepStart.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+	}
+
+	timeString():string{
+		return this.sleepStart.toLocaleTimeString('en-us') + ' to ' + this.sleepEnd.toLocaleTimeString('en-us');
+	}
+
+	getSleepStart():string{
+		return this.sleepStart.toString();
+	}
+
+	getSleepEnd():string{
+		return this.sleepEnd.toString();
 	}
 }

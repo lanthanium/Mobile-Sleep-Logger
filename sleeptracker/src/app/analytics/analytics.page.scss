@@ -1,0 +1,16 @@
+div{
+    display: flex;
+    justify-content: center;
+}
+
+ion-toolbar{
+    --background:rgb(43, 134, 36);
+}
+ion-content#container{
+--background: rgb(14, 14, 14);
+}
+
+ion-card{
+    --background: rgba(42, 42, 42, 0.936);
+    --color: #ffffff;
+}

@@ -1,0 +1,50 @@
+ion-toolbar {
+    --background:rgb(43, 134, 36);
+}
+
+ion-segment {
+    --color: white;
+    --background:rgb(43, 134, 36);
+}
+
+ion-content{
+    --background: rgb(14, 14, 14);
+}
+
+ion-card{
+    --background: rgba(42, 42, 42, 0.936);
+    --color: #ffffff;
+}
+
+ion-button {
+    --background-hover: rgb(102, 209, 102);
+}
+
+ion-button#updateDiary, ion-button#cancel, ion-button#entryUpdated,
+ion-button#defaultOverNight, ion-button#updatedOverNight, ion-button#closeModal{
+    --background: rgb(43, 134, 36);
+    --color: white;
+    --background-hover: rgb(102, 209, 102);
+}
+
+ion-item{
+    --background: rgba(14, 14, 14, 0.36);
+    
+}
+
+ion-button#entryUpdated, ion-button#updatedOverNight{
+    --background-hover: none;
+    
+}
+
+ion-modal#editDateTime, ion-modal#editStanfordLevel, ion-modal#overNightModal{
+    --width: fit-content;
+    --height: fit-content;
+}
+
+ion-datetime{
+    --background: rgb(22, 71, 19);
+    --color: white;
+}
+
+

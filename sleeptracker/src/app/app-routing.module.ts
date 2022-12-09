@@ -10,7 +10,24 @@ const routes: Routes = [
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
+  },  {
+    path: 'analytics',
+    loadChildren: () => import('./analytics/analytics.module').then( m => m.AnalyticsPageModule)
   },
+
+/*   {
+    path: 'sleepiness',
+    loadChildren: () => import('./sleepiness/sleepiness.module').then( m => m.SleepinessPageModule)
+  },
+  {
+    path: 'history',
+    loadChildren: () => import('./history/history.module').then( m => m.HistoryPageModule)
+  },
+  {
+    path: 'logging',
+    loadChildren: () => import('./logging/logging.module').then( m => m.LoggingPageModule)
+  }, */
+
 ];
 
 @NgModule({
