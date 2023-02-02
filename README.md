@@ -1,6 +1,24 @@
 # Demo Link
 https://www.youtube.com/watch?v=TwebVgX4EFU
 
+# Installing Packages
+To run the Ionic app, be sure to run
+
+npm install -g @ionic/cli
+
+in your CLI of preference. 
+
+CD into sleeptracker folder and run these commands. 
+
+npm install
+
+npm install @capacitor/preferences
+
+to install the required packages/dependencies. 
+
+To open the app, run this command in the sleeptracker directory
+
+ionic lab 
 
 # Sleep Logging App for iOS/Android
 
